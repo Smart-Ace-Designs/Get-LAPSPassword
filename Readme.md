@@ -6,7 +6,7 @@
 This repository contains all files required to build the **Get-LAPSPassword** ScriptoForm project.  A *ScriptoForm* ("Script Oh Form") is a PowerShell script that generates and displays a [Microsoft Windows Forms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/?view=netdesktop-7.0#introduction) application that can be used for a specific management or system administration task in a network environment.  A *ScriptoForm project* is the set of files and folders, including the PowerShell script, that can be compiled into an executable file using the Microsoft .NET CLI utility (dotnet.exe) which is available with any [Microsoft .NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet).  Included in the repository is the Build.cs C# file which the compiler will use as the source for the executable, and the Build.csproj C# project file which provides the set of instructions used to compile the executable.
 
 ## Purpose
-The **Get-LAPSPassword** script launches a Windows form that provides a method to retreive the local administrator account password ([LAPS](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview)) in plain text for a computer in an Active Directory domain.
+The **Get-LAPSPassword** script launches a Windows form that provides a method to retrieve the local administrator account password ([LAPS](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview)) in plain text for a computer in an Active Directory domain.
 
 ![Screenshot 2023-05-17 211322](https://github.com/Smart-Ace-Designs/Get-LAPSPassword/assets/132539186/2eb65297-5667-4462-a452-d65eec237af4)
 
