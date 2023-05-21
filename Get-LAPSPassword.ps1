@@ -40,9 +40,12 @@ $ErrorProviderMain = New-Object -TypeName System.Windows.Forms.ErrorProvider
 #region Forms
 $ShowFormMain =
 {
+    $FormWidth = 330
+    $FormHeight = 260
+
     $FormMain.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon((Get-Process -Id $PID).Path)
     $FormMain.Text = "Get LAPS Password"
-    $FormMain.ClientSize = New-Object -TypeName System.Drawing.Size(330,260)
+    $FormMain.ClientSize = New-Object -TypeName System.Drawing.Size($FormWidth,$FormHeight)
     $FormMain.Font = New-Object -TypeName System.Drawing.Font("MS Sans Serif",8)
     $FormMain.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
     $FormMain.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
@@ -52,7 +55,7 @@ $ShowFormMain =
     $FormMain.Add_Shown($FormMain_Shown)
 
     $GroupBoxMain.Location = New-Object -TypeName System.Drawing.Point(10,5)
-    $GroupBoxMain.Size = New-Object -TypeName System.Drawing.Size(310,180)
+    $GroupBoxMain.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 20),($FormHeight - 80))
     $FormMain.Controls.Add($GroupBoxMain)
 
     $LabelServerName.Location = New-Object -TypeName System.Drawing.Point(15,15)
@@ -61,7 +64,7 @@ $ShowFormMain =
     $GroupBoxMain.Controls.Add($LabelServerName)
 
     $TextBoxServerName.Location = New-Object -TypeName System.Drawing.Point(15,35)
-    $TextBoxServerName.Size = New-Object -TypeName System.Drawing.Size(280,20)
+    $TextBoxServerName.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),20)
     $TextBoxServerName.TabIndex = 0
     $TextBoxServerName.CharacterCasing = [System.Windows.Forms.CharacterCasing]::Upper
     $TextBoxServerName.MaxLength = 15
@@ -74,7 +77,7 @@ $ShowFormMain =
     $GroupBoxMain.Controls.Add($LabelExpirationDate)
 
     $TextBoxExpirationDate.Location = New-Object -TypeName System.Drawing.Point(30,90)
-    $TextBoxExpirationDate.Size = New-Object -TypeName System.Drawing.Size(260,20)
+    $TextBoxExpirationDate.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 70),20)
     $TextBoxExpirationDate.BorderStyle = "None"
     $TextBoxExpirationDate.ReadOnly = $true
     $TextBoxExpirationDate.Text = "Waiting..."
@@ -86,14 +89,14 @@ $ShowFormMain =
     $GroupBoxMain.Controls.Add($LabelPassword)
 
     $TextBoxPassword.Location = New-Object -TypeName System.Drawing.Point(30,145)
-    $TextBoxPassword.Size = New-Object -TypeName System.Drawing.Size(260,20)
+    $TextBoxPassword.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 70),20)
     $TextBoxPassword.BorderStyle = "None"
     $TextBoxPassword.ReadOnly = $true
     $TextBoxPassword.Text = "Waiting..."
     $TextBoxPassword.Add_DoubleClick($TextBoxPassword_DoubleClick)
     $GroupBoxMain.Controls.Add($TextBoxPassword)
 
-    $ButtonRun.Location = New-Object -TypeName System.Drawing.Point(155,200)
+    $ButtonRun.Location = New-Object -TypeName System.Drawing.Point(($FormWidth - 175),($FormHeight - 60))
     $ButtonRun.Size = New-Object -TypeName System.Drawing.Size(75,25)
     $ButtonRun.TabIndex = 100
     $ButtonRun.Text = "Run"
@@ -101,7 +104,7 @@ $ShowFormMain =
     $ButtonRun.Add_Click($ButtonRun_Click)
     $FormMain.Controls.Add($ButtonRun)
 
-    $ButtonClose.Location = New-Object -TypeName System.Drawing.Point(245,200)
+    $ButtonClose.Location = New-Object -TypeName System.Drawing.Point(($FormWidth - 85),($FormHeight - 60))
     $ButtonClose.Size = New-Object -TypeName System.Drawing.Size(75,25)
     $ButtonClose.TabIndex = 101
     $ButtonClose.Text = "Close"
