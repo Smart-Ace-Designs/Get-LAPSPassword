@@ -168,6 +168,7 @@ $ButtonRun_Click =
 {
     $ToolStripStatusLabelMain.Text = "Working...please wait"
     $FormMain.Controls | Where-Object {$PSItem -isnot [System.Windows.Forms.StatusStrip]} | ForEach-Object {$PSItem.Enabled = $false}
+    $FormMain.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
     [System.Windows.Forms.Application]::DoEvents()
 
     try
@@ -198,6 +199,7 @@ $ButtonRun_Click =
     }
 
     $FormMain.Controls | ForEach-Object {$PSItem.Enabled = $true}
+    $FormMain.ResetCursor()
     $TextBoxServerName.Focus()
     $ToolStripStatusLabelMain.Text = "Ready"
     $StatusStripMain.Update()
