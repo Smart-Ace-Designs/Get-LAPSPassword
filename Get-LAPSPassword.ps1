@@ -9,8 +9,8 @@ Use this script to retrieve the LAPS managed password of a member server in the 
 #>
 
 #region Settings
-$RequiredModules = @("LAPS")
-$SupportContact = "Smart Ace Designs"
+$REQUIRED_MODULES = @("LAPS")
+$SUPPORT_CONTACT = "Smart Ace Designs"
 #endregion
 
 #region Assemblies
@@ -190,7 +190,7 @@ $ButtonRun_Click =
     catch
     {
         [void][System.Windows.Forms.MessageBox]::Show(
-            $PSItem.Exception.Message + "`n`nContact $SupportContact for technical support.",
+            $PSItem.Exception.Message + "`n`nContact $SUPPORT_CONTACT for technical support.",
             "Exception",
             [System.Windows.Forms.MessageBoxButtons]::OK,
             [System.Windows.Forms.MessageBoxIcon]::Warning
@@ -208,15 +208,15 @@ $ButtonRun_Click =
 
 #region Main
 $MissingModules = @()
-foreach ($Module in $RequiredModules)
+foreach ($Module in $REQUIRED_MODULES)
 {
-    if ($RequiredModules -notcontains (Get-Module -ListAvailable -Name $Module | Get-Unique)) {$MissingModules += (" $([char]8226) " + $Module)}
+    if ($REQUIRED_MODULES -notcontains (Get-Module -ListAvailable -Name $Module | Get-Unique)) {$MissingModules += (" $([char]8226) " + $Module)}
 }
 
 if ($MissingModules)
 {
     [void][System.Windows.Forms.MessageBox]::Show(
-        "The following PowerShell modules are required:`n`n$($MissingModules -join "`n")`n`nPlease contact $SupportContact for technical support.",
+        "The following PowerShell modules are required:`n`n$($MissingModules -join "`n")`n`nPlease contact $SUPPORT_CONTACT for technical support.",
         "Requirements",
         [System.Windows.Forms.MessageBoxButtons]::OK,
         [System.Windows.Forms.MessageBoxIcon]::Information
