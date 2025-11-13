@@ -8,7 +8,10 @@ The **Get-LAPSPassword** script launches a Windows form that provides a method t
 
 ![Screenshot 2023-05-17 211322](https://github.com/Smart-Ace-Designs/Get-LAPSPassword/assets/132539186/2eb65297-5667-4462-a452-d65eec237af4)
 
-**Note:** Caution should be used when executing this script to ensure that the LAPS password for a domain-joined computer is not exposed to unauthorized persons.  If copying the password to your clipboard, the clipboard contents should be manually [cleared](https://support.microsoft.com/en-us/windows/get-help-with-clipboard-30375039-ce71-9fe4-5b30-21b7aab6b13f) after the password is no longer needed.
+> [!warning]
+> Caution should be used when executing this script to ensure that the LAPS password for a domain-joined computer is not exposed to unauthorized persons.  If copying the password to your clipboard, the clipboard contents should be manually [cleared](https://support.microsoft.com/en-us/windows/get-help-with-clipboard-30375039-ce71-9fe4-5b30-21b7aab6b13f) after the password is no longer needed.
+> 
+> The user running the ScriptoForm is required have appropriate [permissions](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-scenarios-windows-server-active-directory#grant-password-query-permissions) within the domain in order to query the password attribute of a computer object.
 
 ## Requirements
 - This project supports the following command shells:
