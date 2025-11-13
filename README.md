@@ -1,5 +1,6 @@
 # Get-LAPSPassword
-**Warning:** This ScriptoForm is for demonstration purposes only and not intended for use in a production environment.
+>[!warning]
+>This ScriptoForm is for demonstration purposes only and not intended for use in a production environment.
 
 This repository contains all files required to build the **Get-LAPSPassword** ScriptoForm project.  A *ScriptoForm* is a PowerShell script that generates and displays a [Microsoft Windows Forms](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/?view=netdesktop-10.0#introduction) application that can be used for a specific management or system administration task in a network environment.  A *ScriptoForm project* is the set of files and folders, including the PowerShell script, that can be compiled into an executable file using the Microsoft .NET CLI utility (dotnet.exe) which is available with any [Microsoft .NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet).  Included in the repository is the Build.cs C# file which the compiler will use as the source for the executable, and the Build.csproj C# project file which provides the set of instructions used to compile the executable.
 
@@ -8,10 +9,10 @@ The **Get-LAPSPassword** script launches a Windows form that provides a method t
 
 ![Screenshot 2023-05-17 211322](https://github.com/Smart-Ace-Designs/Get-LAPSPassword/assets/132539186/2eb65297-5667-4462-a452-d65eec237af4)
 
-> [!warning]
-> Caution should be used when executing this script to ensure that the LAPS password for a domain-joined computer is not exposed to unauthorized persons.  If copying the password to your clipboard, the clipboard contents should be manually [cleared](https://support.microsoft.com/en-us/windows/get-help-with-clipboard-30375039-ce71-9fe4-5b30-21b7aab6b13f) after the password is no longer needed.
+>[!warning]
+>Caution should be used when executing this script to ensure that the LAPS password for a domain-joined computer is not exposed to unauthorized persons.  If copying the password to your clipboard, the clipboard contents should be manually [cleared](https://support.microsoft.com/en-us/windows/get-help-with-clipboard-30375039-ce71-9fe4-5b30-21b7aab6b13f) after the password is no longer needed.
 > 
-> The user running the ScriptoForm is required have appropriate [permissions](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-scenarios-windows-server-active-directory#grant-password-query-permissions) within the domain in order to query the password attribute of a computer object.
+>The user running the ScriptoForm is required have appropriate [permissions](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-scenarios-windows-server-active-directory#grant-password-query-permissions) within the domain in order to query the password attribute of a computer object.
 
 ## Requirements
 - This project supports the following command shells:
