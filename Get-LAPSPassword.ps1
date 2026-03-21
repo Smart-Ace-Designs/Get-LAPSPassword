@@ -121,6 +121,36 @@ $ShowFormMain =
 }
 #endregion
 
+#region Functions
+function Invoke-FormAction
+{
+    param
+    (
+        [Parameter(Mandatory, Position = 0)] [ScriptBlock]$Action,
+        [Parameter(Position = 1)] [ScriptBlock]$Reset = $null,
+        [Parameter(Position = 2)] [String]$StatusText = "Working...please wait"
+    )
+
+    try
+    {
+        $ToolStripStatusLabelMain.Text = $StatusText
+        $FormMain.Controls | Where-Object {$PSItem -isnot [System.Windows.Forms.StatusStrip]} | ForEach-Object {$PSItem.Enabled = $false}
+        $FormMain.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
+        [System.Windows.Forms.Application]::DoEvents()
+        Invoke-Command -ScriptBlock $Action
+    }
+    
+    finally
+    {
+        $FormMain.Controls | ForEach-Object {$PSItem.Enabled = $true}
+        $FormMain.ResetCursor()
+        if ($Reset) {Invoke-Command -ScriptBlock $Reset}
+        $ToolStripStatusLabelMain.Text = "Ready"
+        $StatusStripMain.Update()
+    }
+}
+#endregion
+
 #region Handlers
 $FormMain_Shown =
 {
@@ -166,43 +196,36 @@ $TextBoxPassword_DoubleClick =
 
 $ButtonRun_Click = 
 {
-    $ToolStripStatusLabelMain.Text = "Working...please wait"
-    $FormMain.Controls | Where-Object {$PSItem -isnot [System.Windows.Forms.StatusStrip]} | ForEach-Object {$PSItem.Enabled = $false}
-    $FormMain.Cursor = [System.Windows.Forms.Cursors]::WaitCursor
-    [System.Windows.Forms.Application]::DoEvents()
-
-    try
-    {
-        $ServerName = ($TextBoxServerName.Text).Trim()
-        if ($Results = Get-LapsADPassword -AsPlainText -Identity  $ServerName -WarningAction SilentlyContinue)
+    Invoke-FormAction -Action {
+        try
         {
-            $TextBoxExpirationDate.Text = $Results.ExpirationTimeStamp
-            $TextBoxPassword.Font = New-Object -TypeName System.Drawing.Font("Microsoft Sans Serif",16)
-            $TextBoxPassword.Text = $Results.Password
+            $ServerName = ($TextBoxServerName.Text).Trim()
+            if ($Results = Get-LapsADPassword -AsPlainText -Identity $ServerName -WarningAction SilentlyContinue)
+            {
+                $TextBoxExpirationDate.Text = $Results.ExpirationTimeStamp
+                $TextBoxPassword.Font = New-Object -TypeName System.Drawing.Font("Microsoft Sans Serif",16)
+                $TextBoxPassword.Text = $Results.Password
+            }
+            else
+            {
+                $TextBoxExpirationDate.Text = "No LAPS data found..."
+                $TextBoxPassword.Font = New-Object -TypeName System.Drawing.Font("Microsoft Sans Serif",8)
+                $TextBoxPassword.Text = "No LAPS data found..."
+            }
         }
-        else
+        catch
         {
-            $TextBoxExpirationDate.Text = "No LAPS data found..."
-            $TextBoxPassword.Font = New-Object -TypeName System.Drawing.Font("Microsoft Sans Serif",8)
-            $TextBoxPassword.Text = "No LAPS data found..."
+            [void][System.Windows.Forms.MessageBox]::Show(
+                $PSItem.Exception.Message + "`n`nContact $SUPPORT_CONTACT for technical support.",
+                "Exception",
+                [System.Windows.Forms.MessageBoxButtons]::OK,
+                [System.Windows.Forms.MessageBoxIcon]::Warning
+            )
+            $FormMain.Close()
         }
+    } -Reset {
+        $TextBoxServerName.Focus()
     }
-    catch
-    {
-        [void][System.Windows.Forms.MessageBox]::Show(
-            $PSItem.Exception.Message + "`n`nContact $SUPPORT_CONTACT for technical support.",
-            "Exception",
-            [System.Windows.Forms.MessageBoxButtons]::OK,
-            [System.Windows.Forms.MessageBoxIcon]::Warning
-        )
-        $FormMain.Close()
-    }
-
-    $FormMain.Controls | ForEach-Object {$PSItem.Enabled = $true}
-    $FormMain.ResetCursor()
-    $TextBoxServerName.Focus()
-    $ToolStripStatusLabelMain.Text = "Ready"
-    $StatusStripMain.Update()
 }
 #endregion
 
